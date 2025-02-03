@@ -1,11 +1,12 @@
 import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
 import { CATEGORIES } from '../constants/data/dummy-data';
+import { useEffect } from 'react';
 
 
 const Item = ({ id, title, color, navigation }) => (
   <Pressable
     style={[styles.item, { backgroundColor: color }]}
-    onPress={() => navigation.navigate('Category', {id})}
+    onPress={() => navigation.navigate('Category', {categoryId: id})}
   >
     <Text style={styles.title}>{title}</Text>
   </Pressable>
@@ -13,6 +14,11 @@ const Item = ({ id, title, color, navigation }) => (
 
 
 function HomeScreen({ navigation }) {
+
+  useEffect(() => {
+    navigation.setOptions({title: 'All Categories'})
+  }, [navigation])
+
   return (
     <View style={styles.container}>
       <FlatList

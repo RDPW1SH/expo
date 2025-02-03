@@ -1,24 +1,22 @@
 import { Text, StyleSheet, FlatList, View, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { MEALS } from '../../../constants/data/dummy-data';
+import { MEALS } from '../constants/data/dummy-data';
 
 const CategoryScreen = ({ route }) => {
 
     const [meals, setMeals] = useState();
     // console.log(route.params)
-    let id = route?.params?.id; 
+    let categoryId = route?.params?.categoryId; 
 
     useEffect(() => {
-
-        const filteredMeals = MEALS.filter(meal => meal.categoryIds.includes(id));
+        const filteredMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId));
         setMeals(filteredMeals);
-
-    }, [id])
+    }, [categoryId])
 
     const listComponent = ({item}) => (
-        <View style={styles.listContainer}>
-            <Image source={{ uri: item.imageUrl }} width={360} height={220} />
+        <View style={[styles.listContainer, styles.shadowProp]}>
+            <Image style={styles.listImage} source={{ uri: item.imageUrl }} />
             <View style={styles.listView}>
                 <Text style={styles.listTitle}>{item.title}</Text>
                 <View style={styles.listTextView}>
@@ -32,7 +30,6 @@ const CategoryScreen = ({ route }) => {
     return (
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
-            <Text>Categoria ID: {id}</Text>
             <FlatList data={meals} renderItem={listComponent} />
         </SafeAreaView>
       </SafeAreaProvider>
@@ -43,47 +40,46 @@ export default CategoryScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, alignItems: 'center', justifyContent: 'center',
-        backgroundColor:'#A48686',
-        
-      },
+        flex: 1,
+        backgroundColor: '#A48686',
+        paddingHorizontal: 25, 
+        paddingTop: 20,
+    },
     listContainer: {
-        minWidth: 360,
-        height: 'auto',
+        width: '100%',
         borderRadius: 10,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'purple',
+        backgroundColor: 'white',
+        marginBottom: 15, 
+        overflow: 'hidden',
     },
     listView: {
-        width: '100%',
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'column',
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        padding: 8,
+        padding: 15,
         alignItems: 'center',
-        justifyContent: 'center',
-        
+    },
+    listImage: {
+        width: '100%', 
+        height: 220,
     },
     listTextView: {
-        flex: 1,
-        display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 10
+        justifyContent: 'space-around',
+        width: '100%',
+        marginTop: 10,
     },
     listTitle: {
         fontSize: 20,
-        fontStyle: 'bold',
         fontWeight: '600',
-        paddingBottom: 15,
+        textAlign: 'center',
+        paddingBottom: 10,
     },
     listText: {
         fontSize: 14,
-        fontStyle: 'normal',
+    },
+    shadowProp: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 4, 
     }
-})
+});
