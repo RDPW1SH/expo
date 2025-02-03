@@ -1,55 +1,71 @@
-import { Text, StyleSheet, FlatList, View, Image } from 'react-native'
+import { Text, StyleSheet,Pressable ,FlatList, View, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { MEALS } from '../constants/data/dummy-data';
+import { MEALS, CATEGORIES } from '../constants/data/dummy-data';
 
-const CategoryScreen = ({ route }) => {
-
-    const [meals, setMeals] = useState();
-    // console.log(route.params)
-    let categoryId = route?.params?.categoryId; 
+const CategoryScreen = ({ route, navigation }) => {
+    const [meals, setMeals] = useState([]);
+    const categoryId = route?.params?.categoryId;
+    const category = CATEGORIES.find((cat) => cat.id === categoryId);
+    console.log(category.title)
 
     useEffect(() => {
-        const filteredMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId));
-        setMeals(filteredMeals);
-    }, [categoryId])
+        if (categoryId) {
+            const filteredMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId));
+            setMeals(filteredMeals);
+        }
 
-    const listComponent = ({item}) => (
+        if (category) {
+            navigation.setOptions({ title: category.title });
+        }
+    }, [categoryId, category, navigation]);
+
+    const renderItem = ({ item }) => (
         <View style={[styles.listContainer, styles.shadowProp]}>
-            <Image style={styles.listImage} source={{ uri: item.imageUrl }} />
-            <View style={styles.listView}>
-                <Text style={styles.listTitle}>{item.title}</Text>
-                <View style={styles.listTextView}>
-                    <Text style={styles.listText}>{item.duration} Minutes</Text>
-                    <Text style={styles.listText}>{item.complexity}</Text>
-                    <Text style={styles.listText}>{item.affordability}</Text>    
+            <Pressable
+                onPress={() => navigation.navigate('Recipe', { mealId: item.id })}
+            >
+                <Image style={styles.listImage} source={{ uri: item.imageUrl }} />
+                <View style={styles.listView}>
+                    <Text style={styles.listTitle}>{item.title}</Text>
+                    <View style={styles.listTextView}>
+                        <Text style={styles.listText}>{item.duration} Minutes</Text>
+                        <Text style={styles.listText}>{item.complexity}</Text>
+                        <Text style={styles.listText}>{item.affordability}</Text>
+                    </View>
                 </View>
-            </View>
+            </Pressable>
         </View>
-    ); 
-    return (
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.container}>
-            <FlatList data={meals} renderItem={listComponent} />
-        </SafeAreaView>
-      </SafeAreaProvider>
     );
-  };
-  
+
+    return (
+        <SafeAreaProvider>
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    data={meals}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    ListEmptyComponent={<Text>No meals found</Text>}
+                />
+            </SafeAreaView>
+        </SafeAreaProvider>
+    );
+};
+
 export default CategoryScreen;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#A48686',
-        paddingHorizontal: 25, 
+        paddingHorizontal: 25,
         paddingTop: 20,
     },
     listContainer: {
         width: '100%',
         borderRadius: 10,
         backgroundColor: 'white',
-        marginBottom: 15, 
+        marginBottom: 15,
         overflow: 'hidden',
     },
     listView: {
@@ -57,7 +73,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     listImage: {
-        width: '100%', 
+        width: '100%',
         height: 220,
     },
     listTextView: {
@@ -80,6 +96,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 4, 
+        elevation: 4,
     }
 });
