@@ -1,20 +1,16 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import FoodScreen from './screens/food';
 
-function HomeScreen() {
-
-
-
+function HomeScreen({navigation}) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Text>Home Screen</Text>
-      <Pressable >
+      <Pressable onPress={() => navigation.navigate('Food', {})}>
         <Text>Go to Food</Text>
       </Pressable>
     </View>
@@ -25,13 +21,10 @@ const Stack = createNativeStackNavigator();
 
 function RootStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{}}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Food" component={FoodScreen} />
       </Stack.Navigator>
-    </NavigationContainer>
-    
   );
 }
 
@@ -42,3 +35,9 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, alignItems: 'center', justifyContent: 'center',
+  }
+})
