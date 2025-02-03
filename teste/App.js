@@ -1,11 +1,9 @@
 // In App.js in a new project
-
 import * as React from 'react';
-import { View, Text, Pressable,StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/Home';
-import FoodScreen from './screens/food';
+import FoodScreen from './screens/Food';
 
 
 const Stack = createNativeStackNavigator();
