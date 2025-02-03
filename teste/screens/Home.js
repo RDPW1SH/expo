@@ -1,6 +1,6 @@
-import { View, Text, FlatList, Pressable, StyleSheet } from 'react-native';
-import { CATEGORIES } from '../constants/data/dummy-data';
-import { useEffect } from 'react';
+import { View, Text, FlatList, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { useState, useEffect } from 'react';
 
 
 const Item = ({ id, title, color, navigation }) => (
@@ -15,15 +15,44 @@ const Item = ({ id, title, color, navigation }) => (
 
 function HomeScreen({ navigation }) {
 
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
   useEffect(() => {
+    async function handleData() {
+
+      try {
+        const res = await fetch('https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category');
+        if(res.ok) {
+          const data = await res.json();
+          setCategories(data);
+        }
+
+      } catch (e) {
+        console.error(e)
+      }     
+      setLoading(false); 
+    }
     navigation.setOptions({title: 'All Categories'})
+    handleData()
+    
   }, [navigation])
 
+  if(loading) {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <ActivityIndicator size="large" color='#fff'/>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    )
+  }
   return (
     <View style={styles.container}>
       <FlatList
         numColumns={2}
-        data={CATEGORIES}
+        data={categories}
         renderItem={({ item }) =>
           <Item
             id={item.id}
