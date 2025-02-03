@@ -1,18 +1,44 @@
-import { Text, StyleSheet, FlatList, View, Image } from 'react-native'
+import { Text, StyleSheet, FlatList, View, Image, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { MEALS } from '../constants/data/dummy-data';
 
-const CategoryScreen = ({ route }) => {
+const CategoryScreen = ({ route, navigation }) => {
 
-    const [meals, setMeals] = useState();
-    // console.log(route.params)
+    const [meals, setMeals] = useState([]);
+    const [loading, setLoading] = useState(true);
+    
     let categoryId = route?.params?.categoryId; 
+      useEffect(() => {
+        async function handleData() {
+    
+          try {
 
-    useEffect(() => {
-        const filteredMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId));
-        setMeals(filteredMeals);
-    }, [categoryId])
+            const res = await fetch('https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals');
+            if(res.ok) {
+              const data = await res.json();
+              const filteredMeals = data.filter(meal => meal.categoryIds.includes(categoryId));
+              setMeals(filteredMeals);
+            }
+    
+          } catch (e) {
+            console.error(e)
+          }     
+          setLoading(false); 
+        }
+        navigation.setOptions({title: route?.params?.categoryTitle || 'Categoria'});
+        handleData()
+        
+      }, [categoryId])
+    
+      if(loading) {
+        return (
+          <SafeAreaProvider>
+            <SafeAreaView style={styles.container}>
+              <ActivityIndicator size="large" color='#fff'/>
+            </SafeAreaView>
+          </SafeAreaProvider>
+        )
+      }
 
     const listComponent = ({item}) => (
         <View style={[styles.listContainer, styles.shadowProp]}>

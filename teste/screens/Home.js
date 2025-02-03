@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 const Item = ({ id, title, color, navigation }) => (
   <Pressable
     style={[styles.item, { backgroundColor: color }]}
-    onPress={() => navigation.navigate('Category', {categoryId: id})}
+    onPress={() => navigation.navigate('Category', {categoryId: id, categoryTitle: title})}
   >
     <Text style={styles.title}>{title}</Text>
   </Pressable>
