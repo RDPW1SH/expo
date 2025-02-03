@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'react-native';
 import HomeScreen from './screens/Home';
+import CategoryScreen from './screens/categoria/[id]';
 import FoodScreen from './screens/Food';
 
 
@@ -24,6 +25,7 @@ function RootStack() {
       }}>
         <Stack.Screen name="All Categories" component={HomeScreen} />
         <Stack.Screen name="Food" component={FoodScreen} />
+        <Stack.Screen name="Category" component={CategoryScreen} />
       </Stack.Navigator>
     </>
   );

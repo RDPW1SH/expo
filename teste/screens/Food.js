@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const food = () => {
+const Food = () => {
   return (
     <View>
       <Text>food</Text>
@@ -9,4 +9,4 @@ const food = () => {
   )
 }
 
-export default food
+export default Food
