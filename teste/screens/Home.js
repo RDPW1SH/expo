@@ -5,7 +5,7 @@ import { CATEGORIES } from '../constants/data/dummy-data';
 const Item = ({ id, title, color, navigation }) => (
   <Pressable
     style={[styles.item, { backgroundColor: color }]}
-    onPress={() => navigation.navigate('Food', id)}
+    onPress={() => navigation.navigate('Category', {id})}
   >
     <Text style={styles.title}>{title}</Text>
   </Pressable>
