@@ -3,10 +3,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Pressable onPress={() => navigation.navigate('Food', {})}>
-        <Text>Go to Food</Text>
-      </Pressable>
+
     </View>
   );
 }

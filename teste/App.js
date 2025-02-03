@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 function RootStack() {
   return (
       <Stack.Navigator screenOptions={{}}>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="All Categories" component={HomeScreen} />
         <Stack.Screen name="Food" component={FoodScreen} />
       </Stack.Navigator>
   );
