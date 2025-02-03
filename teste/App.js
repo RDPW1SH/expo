@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'react-native';
 import HomeScreen from './screens/Home';
 import FoodScreen from './screens/Food';
 
@@ -10,10 +11,21 @@ const Stack = createNativeStackNavigator();
 
 function RootStack() {
   return (
-      <Stack.Navigator screenOptions={{}}>
+    <>
+      <StatusBar backgroundColor="#8C3232" barStyle="light-content" />
+      <Stack.Navigator screenOptions={{
+        headerStyle: {
+          backgroundColor: '#8C3232',
+        },
+        headerTintColor: '#ffffff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
         <Stack.Screen name="All Categories" component={HomeScreen} />
         <Stack.Screen name="Food" component={FoodScreen} />
       </Stack.Navigator>
+    </>
   );
 }
 
