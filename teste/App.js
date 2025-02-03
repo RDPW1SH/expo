@@ -25,7 +25,7 @@ export default function App() {
         },
       }}>
         <Stack.Screen name="AllCategories" component={HomeScreen} />
-        <Stack.Screen name="Food" component={RecipeScreen} />
+        <Stack.Screen name="Recipe" component={RecipeScreen} />
         <Stack.Screen name="Category" component={CategoryScreen} />
       </Stack.Navigator>
       </NavigationContainer>
