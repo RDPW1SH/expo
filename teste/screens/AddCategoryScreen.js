@@ -3,7 +3,6 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import ColorPicker, { Panel1, Swatches, Preview, OpacitySlider, HueSlider } from 'reanimated-color-picker';
-import { useSharedValue } from 'react-native-reanimated';
 const AddCategoryScreen = () => {
 
     
