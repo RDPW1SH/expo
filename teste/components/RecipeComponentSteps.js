@@ -1,20 +1,4 @@
-import { Text, StyleSheet, View, Image, Pressable } from 'react-native'
-
-function RecipeComponentIngredients({ meal }) {
-
-    return (
-        <View style={styles.view}>
-            <Text style={styles.title}>Ingredients</Text>
-            <View style={styles.underline}></View>
-            {meal.ingredients?.map((ingredient, index) => (
-                <Text key={index} style={styles.ingredientText}>
-                    {ingredient}
-                </Text>
-            ))}
-        </View>
-    );
-}
-
+import { Text, StyleSheet, View} from 'react-native'
 function RecipeComponentSteps({ meal }) {
 
     return (
@@ -60,4 +44,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export { RecipeComponentIngredients, RecipeComponentSteps };
+export default RecipeComponentSteps;

@@ -1,11 +1,12 @@
 import { View, Text, FlatList, Pressable, StyleSheet, ActivityIndicator, Image, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import {RecipeComponentSteps, RecipeComponentIngredients} from '../components/RecipeComponente';
+import RecipeComponentIngredients  from '../components/RecipeComponentIngredients';
+import RecipeComponentSteps  from '../components/RecipeComponentSteps';
 
 
 
-const RecipeScreen = ({ navigation, route }) => {
+function RecipeScreen({ navigation, route }) {
   let id = route?.params?.mealId;
   const [meal, setMeal] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ const RecipeScreen = ({ navigation, route }) => {
       <View style={styles.view}>
         <Image style={styles.image} source={{ uri: meal.imageUrl }} />
         <View style={styles.view2}><Text style={styles.text}>{meal.duration} Minutes</Text><Text style={styles.text2}> {meal.complexity}</Text><Text style={styles.text2}>{meal.affordability}</Text></View>
-        {/* Título Ingredientes */ }
+        {/* Título Ingredientes */}
         <RecipeComponentIngredients meal={meal} />
         {/* Título Steps */}
         <RecipeComponentSteps meal={meal} />
