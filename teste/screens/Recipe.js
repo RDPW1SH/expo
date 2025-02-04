@@ -1,6 +1,7 @@
 import { View, Text, FlatList, Pressable, StyleSheet, ActivityIndicator, Image, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import {RecipeComponentSteps, RecipeComponentIngredients} from '../components/RecipeComponente';
 
 
 
@@ -37,28 +38,16 @@ const RecipeScreen = ({ navigation, route }) => {
       </SafeAreaProvider>
     )
   }
-
+  console.log(meal);
   return (
     <ScrollView style={styles.container}>
       <View style={styles.view}>
         <Image style={styles.image} source={{ uri: meal.imageUrl }} />
         <View style={styles.view2}><Text style={styles.text}>{meal.duration} Minutes</Text><Text style={styles.text2}> {meal.complexity}</Text><Text style={styles.text2}>{meal.affordability}</Text></View>
-        {/* Título Ingredientes */}
-        <Text style={styles.title}>Ingredients</Text>
-        <View style={styles.underline}></View>
-        {meal.ingredients?.map((ingredient, index) => (
-          <Text key={index} style={styles.ingredientText}>
-            {ingredient}
-          </Text>
-        ))}
+        {/* Título Ingredientes */ }
+        <RecipeComponentIngredients meal={meal} />
         {/* Título Steps */}
-        <Text style={styles.title}>Steps</Text>
-        <View style={styles.underline}></View>
-        {meal.steps?.map((steps, index) => (
-          <Text key={index} style={styles.ingredientText}>
-            {steps}
-          </Text>
-        ))}
+        <RecipeComponentSteps meal={meal} />
       </View>
     </ScrollView>
   )
