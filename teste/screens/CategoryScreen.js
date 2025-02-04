@@ -1,7 +1,8 @@
-import { Text, StyleSheet, FlatList, View, Image, ActivityIndicator, Pressable } from 'react-native'
+import { Text, StyleSheet, FlatList} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import CategoryComponent from '../components/CategoryComponente';
+import LoadingComponent from '../components/LoadingComponent';
 
 const CategoryScreen = ({ route, navigation }) => {
 
@@ -32,14 +33,9 @@ const CategoryScreen = ({ route, navigation }) => {
 
     if (loading) {
         return (
-            <SafeAreaProvider>
-                <SafeAreaView style={styles.container}>
-                    <ActivityIndicator size="large" color='#fff' />
-                </SafeAreaView>
-            </SafeAreaProvider>
+            <LoadingComponent />
         )
     }
-
 
     const renderItem = ( itemData ) => {
         const item = itemData.item
@@ -69,5 +65,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#A48686',
         paddingHorizontal: 25,
         paddingTop: 20,
-    }
+    },
 });
