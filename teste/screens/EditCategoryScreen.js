@@ -41,7 +41,8 @@ const EditCategoryScreen = ({ route, navigation }) => {
     async function handleData() {
       try {
         const res = await fetch(
-          "https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category"
+          //"https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category"
+          "https://localhost:7199/api/category/listar-categorias"
         );
 
         if (res.ok) {
@@ -64,9 +65,10 @@ const EditCategoryScreen = ({ route, navigation }) => {
 
   const handleEdit = async () => {
     axios
-      .put("/user", {
-        title: newTitle,
-        color: category.color,
+      .put("https://localhost:7199/api/category", {
+        Id: categoryId,
+        Title: newTitle,
+        Color: category.color,
       })
       .then(function (response) {
         console.log(response);

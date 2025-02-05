@@ -6,6 +6,7 @@ import {
   Pressable,
   Modal,
   Button,
+  DevSettings,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -24,7 +25,8 @@ const CategoryList = ({ navigation }) => {
     async function handleData() {
       try {
         const res = await fetch(
-          "https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category"
+          //"https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category"
+          "https://localhost:7199/api/category/listar-categorias"
         );
 
         if (res.ok) {
@@ -51,11 +53,11 @@ const CategoryList = ({ navigation }) => {
     if (!selectedCategoryId) return;
 
     // Editar para eliminar categoria
-    setSelectedCategoryId(0);
+    //setSelectedCategoryId(0);
     axios
-      .delete("/user", {
+      .delete("https://localhost:7199/api/category", {
         params: {
-          id: selectedCategoryId,
+          Id: selectedCategoryId,
         },
       })
       .then(function (response) {
@@ -63,6 +65,7 @@ const CategoryList = ({ navigation }) => {
           categories.filter((category) => category.id !== selectedCategoryId)
         );
         setSelectedCategoryId(null);
+        DevSettings.reload();
       })
       .catch(function (error) {
         console.log(error);
