@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B82EA0-4F4E-4215-8678-8D5DEA182623}|API\\API.csproj|c:\\users\\pedri\\desktop\\estagio\\react\\expo\\teste\\api\\api\\api\\controllers\\mealcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B82EA0-4F4E-4215-8678-8D5DEA182623}|API\\API.csproj|solutionrelative:api\\controllers\\mealcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B82EA0-4F4E-4215-8678-8D5DEA182623}|API\\API.csproj|c:\\users\\pedri\\desktop\\estagio\\react\\expo\\teste\\api\\api\\api\\controllers\\entities\\meal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B82EA0-4F4E-4215-8678-8D5DEA182623}|API\\API.csproj|solutionrelative:api\\controllers\\entities\\meal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Meal.cs",
+              "DocumentMoniker": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\api\\Controllers\\Entities\\Meal.cs",
+              "RelativeDocumentMoniker": "api\\Controllers\\Entities\\Meal.cs",
+              "ToolTip": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\api\\Controllers\\Entities\\Meal.cs",
+              "RelativeToolTip": "api\\Controllers\\Entities\\Meal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T10:27:22.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MealController.cs",
+              "DocumentMoniker": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\api\\Controllers\\MealController.cs",
+              "RelativeDocumentMoniker": "api\\Controllers\\MealController.cs",
+              "ToolTip": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\api\\Controllers\\MealController.cs*",
+              "RelativeToolTip": "api\\Controllers\\MealController.cs*",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T10:17:57.994Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
