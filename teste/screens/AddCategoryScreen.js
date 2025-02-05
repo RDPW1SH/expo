@@ -1,18 +1,15 @@
 import { View, Text, StyleSheet, TextInput, Button, Modal, Pressable } from 'react-native'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native';
 import ColorPicker, { Panel1, Swatches, Preview, OpacitySlider, HueSlider } from 'reanimated-color-picker';
 import axios from "axios";
 
 
-const AddCategoryScreen = () => {
-
-
+const AddCategoryScreen = ({navigation}) => {
     const [showModal, setShowModal] = useState(false);
     const [newTitle, setNewTitle] = useState('');
     const [defaultColor, setDefaultColor] = useState('#2196f3');
-    const navigation = useNavigation();
+    
 
     const onSelectColor = ({ hex }) => {
         setDefaultColor(hex);
@@ -31,6 +28,7 @@ const AddCategoryScreen = () => {
         })
             .then(function (response) {
                 console.log(response);
+                navigation.goBack();
             })
             .catch(function (error) {
                 console.log(error);
@@ -60,7 +58,7 @@ const AddCategoryScreen = () => {
                         </Modal>
                     </View>
                     <Pressable onPress={() => handleAddCategory()} style={styles.confirmPressable}>
-                        <Text style={styles.confirmPressableText}>Editar Categoria</Text>
+                        <Text style={styles.confirmPressableText}>Criar Categoria</Text>
                     </Pressable>
                 </View>
             </SafeAreaView>

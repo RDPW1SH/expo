@@ -17,15 +17,13 @@ namespace API.Controllers
         }
 
         [HttpGet("listar-categorias")]
-
-
         public async Task<IActionResult> GetAllCategory()
         {
             var categories = await _context.Category.ToListAsync();
             return Ok(categories);
         }
 
-        [HttpPost]
+        [HttpPost("adicionar-categorias")]
         public async Task<ActionResult<List<Category>>> AddCategory([FromBody]Category category)
         {
             _context.Category.Add(category);

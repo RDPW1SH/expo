@@ -1,32 +1,6 @@
 [
   {
     "ContainingType": "API.Controllers.CategoryController",
-    "Method": "AddCategory",
-    "RelativePath": "api/category",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "category",
-        "Type": "API.Controllers.Entities.Category",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.List\u00601[[API.Controllers.Entities.Category, API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "API.Controllers.CategoryController",
     "Method": "UpdateCategory",
     "RelativePath": "api/category",
     "HttpMethod": "PUT",
@@ -63,6 +37,32 @@
         "Name": "Id",
         "Type": "System.Int64",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[API.Controllers.Entities.Category, API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.CategoryController",
+    "Method": "AddCategory",
+    "RelativePath": "api/category/adicionar-categorias",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "category",
+        "Type": "API.Controllers.Entities.Category",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [

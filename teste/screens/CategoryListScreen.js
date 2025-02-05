@@ -41,7 +41,12 @@ const CategoryList = ({ navigation }) => {
     }
 
     navigation.setOptions({ title: "Lista de categorias" });
-    handleData();
+    const chamar = navigation.addListener("focus", () => {
+      handleData();
+    });
+    return chamar;
+
+
   }, [navigation]);
 
   const confirmDelete = (id) => {

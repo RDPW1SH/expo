@@ -42,7 +42,7 @@ const AddRecipeScreen = ({ navigation }) => {
     async function handleData() {
       try {
         const res = await fetch(
-          "https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category"
+          "https://localhost:7199/api/category/listar-categorias"
         );
 
         if (res.ok) {

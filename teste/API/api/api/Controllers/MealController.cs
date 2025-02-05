@@ -24,14 +24,22 @@ namespace API.Controllers
                 var formattedMeals = meals.Select(meal => new
                 {
                     Id = meal.Id, // Mantendo o ID original
-                    CategoryIds = meal.CategoryIds.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries),
+                    CategoryIds = meal.CategoryIds
+                        .Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(id => long.TryParse(id, out var num) ? num : 0) // Convertendo para long e tratando erro
+                        .Where(id => id != 0) // Removendo valores inválidos
+                        .ToList(),
                     Title = meal.Title,
                     Affordability = meal.Affordability,
                     Complexity = meal.Complexity,
                     ImageUrl = meal.ImageUrl,
                     Duration = meal.Duration,
-                    Ingredients = meal.Ingredients.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries),
-                    Steps = meal.Steps.Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries),
+                    Ingredients = meal.Ingredients
+                        .Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToList(),
+                                Steps = meal.Steps
+                        .Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToList(),
                     IsGlutenFree = meal.IsGlutenFree,
                     IsVegan = meal.IsVegan,
                     IsVegetarian = meal.IsVegetarian,
