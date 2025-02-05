@@ -7,6 +7,7 @@ const AddCategoryScreen = () => {
 
     
     const [showModal, setShowModal] = useState(false);
+    const [newTitle, setNewTitle] = useState('');
     const [defaultColor, setDefaultColor] = useState('#2196f3');
     const navigation = useNavigation();
 
@@ -18,20 +19,33 @@ const AddCategoryScreen = () => {
         navigation.setOptions({ title: 'Adicionar Categoria' });
     }, [navigation])
     
+    const handleAddCategory = async () => {
+
+        axios.post('/user', {
+            title: newTitle,
+            color: defaultColor
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
     return (
     <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
             <View style={styles.formContainer}>
                 <View style={styles.formViewCategoryName}>
                     <Text style={styles.formViewTitle}>Nome da Categoria</Text>
-                    <TextInput n style={styles.formViewInput} placeholder='Example: "Asian"'></TextInput>
+                    <TextInput n style={styles.formViewInput} placeholder='Example: "Asian"' onChange={(e) => setNewTitle(e.target.value)}></TextInput>
                 </View>
-                <View style={styles.formViewCategoryColor}>
+                <View>
                     <Text style={styles.formViewTitle}>Cor da categoria</Text>
                     <Button title='Choose a color' color={defaultColor} onPress={() => setShowModal(true)} />
-
                     <Modal visible={showModal} animationType='slide'>
-                        <ColorPicker style={''} value='red' onComplete={onSelectColor}>
+                        <ColorPicker value='red' onComplete={onSelectColor}>
                             <Preview />
                             <Panel1 />
                             <HueSlider />
@@ -41,6 +55,9 @@ const AddCategoryScreen = () => {
                         <Button title='Ok' onPress={() => setShowModal(false)} />
                     </Modal>
                 </View>
+                <Pressable onPress={() => handleAddCategory()} style={styles.confirmPressable}>
+                    <Text style={styles.confirmPressableText}>Editar Categoria</Text>
+                </Pressable>
             </View>
         </SafeAreaView>   
     </SafeAreaProvider>
@@ -62,12 +79,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         gap: 10,
     },
+    colorPicker: {
+        width: '100%',
+        height: 'auto',
+        padding: 15,
+    },
     formViewCategoryName: {
         display: 'flex',
         gap: 5
-    },
-    formViewCategoryColor: {
-
     },
     colorPicker: {
         width: '100%',
@@ -83,6 +102,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderBottomColor: '#A48686',
         borderBottomWidth: 2,
+    },
+    confirmPressable: {
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: 'lightblue',
+        textAlign: 'center',
+    },
+    confirmPressableText: {
+        fontSize: 16,
+        textAlign: 'center'
     }
 })
 

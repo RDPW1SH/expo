@@ -40,23 +40,22 @@ const CategoryList = ({ navigation }) => {
 
         if (!selectedCategoryId) return;
 
+
         // Editar para eliminar categoria
         setSelectedCategoryId(0)
-        try {
-            const res = await fetch(`https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/Category/${selectedCategoryId}`, {
-                method: 'DELETE',
-            });
+        axios.delete('/user', {
+        
+        })
+        .then(function (response) {
 
-            if (res.ok) {
-              
-                setCategories(categories.filter(category => category.id !== selectedCategoryId));
-            }
-        } catch (error) {
-            console.error("Erro ao deletar categoria:", error);
-        } finally {
-            setShowModal(false);
+            setCategories(categories.filter(category => category.id !== selectedCategoryId));
             setSelectedCategoryId(null);
-        }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+     
+        setShowModal(false);
     };
 
     if (loading) {
@@ -74,7 +73,7 @@ const CategoryList = ({ navigation }) => {
                             id={item.id}
                             title={item.title}
                             navigation={navigation}
-                            onDelete={() => confirmDelete(item.id)} // Passando a função de deletar
+                            onDelete={() => confirmDelete(item.id)} // Passar a função de delete
                         />}
                     ListFooterComponent={
                         <View style={styles.addToListView}>
@@ -85,8 +84,6 @@ const CategoryList = ({ navigation }) => {
                         </View>}
                     keyExtractor={item => item.id}
                 />
-
-                {/* ✅ Modal de Confirmação */}
                 <Modal visible={showModal} animationType="slide" transparent={true}>
                     <View style={styles.modalContainer}>
                         <View style={styles.modalContent}>

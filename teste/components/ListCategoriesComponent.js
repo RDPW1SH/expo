@@ -2,6 +2,8 @@ import { Pressable, Text, StyleSheet, View } from "react-native";
 import Icon from "./IconComponent";
 
 export default function ListCategoriesComponent({ id, title, navigation, onDelete }) {
+
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>

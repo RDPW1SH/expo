@@ -53,7 +53,7 @@ const EditCategoryScreen = ({route, navigation}) => {
     }
 
     const handleEdit = async () => {
-
+        
         axios.put('/user', {
             title: newTitle,
             color: category.color
@@ -78,7 +78,7 @@ const EditCategoryScreen = ({route, navigation}) => {
                     <Text style={styles.formViewTitle}>Cor da categoria</Text>
                     <Button title='Choose a color' color={category.color} onPress={() => setShowModal(true)} />
                     <Modal visible={showModal} animationType='slide'>
-                        <ColorPicker style={''} value='red' onComplete={onSelectColor}>
+                        <ColorPicker value='red' onComplete={onSelectColor}>
                             <Preview />
                             <Panel1 />
                             <HueSlider />
