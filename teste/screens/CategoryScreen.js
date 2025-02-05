@@ -18,7 +18,7 @@ const CategoryScreen = ({ route, navigation }) => {
         try {
           const res = await fetch(
             //"https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals"
-            "https://localhost:7199/api/meal/listar-meal"
+            "https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals"
           );
           if (res.ok) {
             const data = await res.json();

@@ -1,14 +1,34 @@
 import { View, FlatList, StyleSheet, Text, Pressable } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import LoadingComponent from "../components/LoadingComponent";
 import HomeCategoriesComponent from "../components/HomeCategoriesComponent";
 import Icon from "../components/IconComponent";
+import axios from "axios";
+import { useFocusEffect } from "@react-navigation/native";
+
 
 function HomeScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  function chamadaApi() {
+    axios
+      .get("https://localhost:7199/api/category/listar-categorias")
+      .then(function (response) {
+        const data = response.data;
+        setCategories(data);
+        console.log(response.data);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+
+
   useEffect(() => {
+    /*
     async function handleData() {
       try {
         const res = await fetch(
@@ -26,10 +46,24 @@ function HomeScreen({ navigation }) {
         setLoading(false);
       }
     }
+    */
+
+
+
     navigation.setOptions({ title: "All Categories" });
-    handleData();
+    //handleData();
+    const chamar = navigation.addListener("focus", () => {
+      chamadaApi();
+    });
+    return chamar;
   }, [navigation]);
 
+  /*
+    useFocusEffect(
+      useCallback(() => {
+        chamadaApi(); // Atualiza os dados sempre que a tela for focada
+      }, []))
+  */
   if (loading) {
     return <LoadingComponent />;
   }
