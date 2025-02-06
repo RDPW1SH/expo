@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj": {}
+    "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj": {}
   },
   "projects": {
-    "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj": {
+    "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Rafa\\.nuget\\packages\\",
-        "outputPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\obj\\",
+        "projectPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\pedri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Rafa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\pedri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

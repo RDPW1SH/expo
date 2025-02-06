@@ -81,7 +81,7 @@ namespace API.Controllers
 
                 return Ok(await _context.Meal.ToListAsync());
             }
-            [HttpDelete]
+            [HttpDelete("delete-meal")]
             public async Task<ActionResult<List<Meal>>> DeleteMeal(long Id)
             {
                 var dbMeal = await _context.Meal.FindAsync(Id);

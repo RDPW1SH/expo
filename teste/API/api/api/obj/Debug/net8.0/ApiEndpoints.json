@@ -142,7 +142,7 @@
   {
     "ContainingType": "API.Controllers.MealController",
     "Method": "DeleteMeal",
-    "RelativePath": "api/meal",
+    "RelativePath": "api/meal/delete-meal",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
