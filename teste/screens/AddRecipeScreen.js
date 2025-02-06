@@ -16,6 +16,10 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import LoadingComponent from "../components/LoadingComponent";
 import { MultiSelect } from "react-native-element-dropdown";
 import Icon from "../components/IconComponent";
+import axios from "axios";
+
+
+
 const AddRecipeScreen = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -113,6 +117,7 @@ const AddRecipeScreen = ({ navigation }) => {
       recipe.affordability.slice(1);
 
     const newRecipe = {
+      Id: 0,
       CategoryIds: formattedCategories,
       Title: recipeTitle,
       ImageUrl: recipe.imageUrl,
@@ -128,9 +133,10 @@ const AddRecipeScreen = ({ navigation }) => {
     };
 
     axios
-      .delete("https://localhost:7199/api/meals")
+      .post("https://localhost:7199/api/meal/add-meal", { newRecipe })
       .then(function (response) {
         console.log(response.data);
+        navigation.goBack();
       })
       .catch(function (error) {
         console.log(error);

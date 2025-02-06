@@ -44,7 +44,7 @@ function HomeScreen({ navigation }) {
     }
     */
 
-    navigation.setOptions({ title: "All Categories" });
+    navigation.setOptions({ title: "All Categories" || "Category" });
     //handleData();
     const chamar = navigation.addListener("focus", () => {
       chamadaApi();
@@ -61,7 +61,6 @@ function HomeScreen({ navigation }) {
   if (loading) {
     return <LoadingComponent />;
   }
-
   return (
     <View style={styles.container}>
       <FlatList
@@ -76,6 +75,7 @@ function HomeScreen({ navigation }) {
           </View>
         }
         renderItem={({ item }) => (
+          
           <HomeCategoriesComponent
             id={item.id}
             title={item.title}

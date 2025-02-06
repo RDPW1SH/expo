@@ -1,4 +1,4 @@
-import { Text, StyleSheet, FlatList, View, Pressable } from "react-native";
+import { Text, StyleSheet, FlatList, View, Pressable, ScrollView, } from "react-native";
 import React, { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -11,6 +11,7 @@ const CategoryScreen = ({ route, navigation }) => {
   const [loading, setLoading] = useState(true);
 
   let categoryId = route?.params?.categoryId;
+  let categoryTitle=route?.params?.categoryTitle;
 
   useFocusEffect(
     useCallback(() => {
@@ -18,7 +19,7 @@ const CategoryScreen = ({ route, navigation }) => {
         try {
           const res = await fetch(
             //"https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals"
-            "https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals"
+            "https://localhost:7199/api/meal/listar-meal"
           );
           if (res.ok) {
             const data = await res.json();
@@ -34,6 +35,7 @@ const CategoryScreen = ({ route, navigation }) => {
           setLoading(false);
         }
       }
+      navigation.setOptions({ title: categoryTitle });
       fetchData();
     }, [categoryId])
   );
@@ -57,22 +59,22 @@ const CategoryScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      <SafeAreaView>
-        <FlatList
-          data={meals}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          ListFooterComponent={
-            <View style={styles.addToListView}>
-              <Text style={styles.addToListViewText}>Add Recipe</Text>
-              <Pressable onPress={() => navigation.navigate("AddRecipe")}>
-                <Icon name="plus" size={24} color="black" />
-              </Pressable>
-            </View>
-          }
-          ListEmptyComponent={<Text>No meals found</Text>}
-        />
-      </SafeAreaView>
+        <ScrollView>
+          <FlatList
+            data={meals}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            ListFooterComponent={
+              <View style={styles.addToListView}>
+                <Text style={styles.addToListViewText}>Add Recipe</Text>
+                <Pressable onPress={() => navigation.navigate("AddRecipe")}>
+                  <Icon name="plus" size={24} color="black" />
+                </Pressable>
+              </View>
+            }
+            ListEmptyComponent={<Text>No meals found</Text>}
+          />
+        </ScrollView>
     </SafeAreaProvider>
   );
 };
