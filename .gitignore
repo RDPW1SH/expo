@@ -68,3 +68,5 @@ yarn-debug.log*
 *.myd
 *.myi
 *.frm
+*.vsidx
+*.dll
