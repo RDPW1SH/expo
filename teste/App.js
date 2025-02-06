@@ -10,6 +10,7 @@ import AddCategoryScreen from "./screens/AddCategoryScreen";
 import CategoryListScreen from "./screens/CategoryListScreen";
 import EditCategoryScreen from "./screens/EditCategoryScreen";
 import AddRecipeScreen from "./screens/AddRecipeScreen";
+import EditRecipeScreen from "./screens/EditRecipeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function App() {
           <Stack.Screen name="CategoryList" component={CategoryListScreen} />
           <Stack.Screen name="EditCategory" component={EditCategoryScreen} />
           <Stack.Screen name="AddRecipe" component={AddRecipeScreen} />
+          <Stack.Screen name="EditRecipe" component={EditRecipeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

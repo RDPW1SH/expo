@@ -26,6 +26,7 @@ teste/API/.vs/API/v17/.wsuo
 
 # Ignorar arquivos específicos dentro das pastas que apareceram no erro
 API/.vs/API/v17/*
+/.vs*
 API/api/.vs/api/v17/*
 API/api/.vs/api/DesignTimeBuild/*
 API/api/.vs/api/ProjectEvaluation/*.bin
