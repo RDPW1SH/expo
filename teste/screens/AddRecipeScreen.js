@@ -133,7 +133,9 @@ const AddRecipeScreen = ({ navigation }) => {
     };
 
     axios
-      .post("https://localhost:7199/api/meal/add-meal", { newRecipe })
+      .post("https://localhost:7199/api/meal/add-meal", { ...newRecipe }, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then(function (response) {
         console.log(response.data);
         navigation.goBack();

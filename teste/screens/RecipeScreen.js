@@ -63,7 +63,7 @@ const RecipeScreen = ({ navigation, route }) => {
   const handleDelete = async () => {
     axios
       .delete(
-        `https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals/${meal.id}`,
+        `https://localhost:7199/api/meal/delete-meal/?Id=${meal.id}`,
         {
           data: { id: meal.id },
         }
@@ -71,14 +71,7 @@ const RecipeScreen = ({ navigation, route }) => {
       .then(function (response) {
         console.log(response.status);
 
-        navigation.navigate("Category");
-
-        setTimeout(() => {
-          navigation.reset({
-            index: 1,
-            routes: [{ name: "HomeScreen" }, { name: "Category" }],
-          });
-        }, 100);
+        navigation.goBack();
       })
       .catch(function (error) {
         console.log(error);
