@@ -26,10 +26,7 @@ const RecipeScreen = ({ navigation, route }) => {
   useEffect(() => {
     async function handleData() {
       try {
-        const res = await fetch(
-          //"https://67a0e0ad5bcfff4fabe0f261.mockapi.io/api/testes/meals"
-          "https://localhost:7199/api/meal/listar-meal"
-        );
+        const res = await fetch("https://localhost:7199/api/meal/listar-meal");
         if (res.ok) {
           const data = await res.json();
           const foundMeal = data.find((meal) => meal.id === id);
@@ -62,12 +59,9 @@ const RecipeScreen = ({ navigation, route }) => {
 
   const handleDelete = async () => {
     axios
-      .delete(
-        `https://localhost:7199/api/meal/delete-meal/?Id=${meal.id}`,
-        {
-          data: { id: meal.id },
-        }
-      )
+      .delete(`https://localhost:7199/api/meal/delete-meal/?Id=${meal.id}`, {
+        data: { id: meal.id },
+      })
       .then(function (response) {
         console.log(response.status);
 
@@ -86,6 +80,14 @@ const RecipeScreen = ({ navigation, route }) => {
         <View style={styles.view}>
           <Image style={styles.image} source={{ uri: meal.imageUrl }} />
           <View style={styles.view2}>
+            <Pressable
+              style={{ paddingLeft: 5 }}
+              onPress={() =>
+                navigation.navigate("EditRecipe", { recipeId: meal.id })
+              }
+            >
+              <Icon name="edit" size={18} color="black" />
+            </Pressable>
             <Text style={styles.text}>{meal.duration} Minutes</Text>
             <Text style={styles.text2}> {meal.complexity}</Text>
             <Text style={styles.text2}>{meal.affordability}</Text>

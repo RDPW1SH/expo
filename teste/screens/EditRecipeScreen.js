@@ -19,21 +19,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
 
   const recipeId = route?.params.recipeId;
 
-  const [recipe, setRecipe] = useState({
-    categoryIds: "",
-    title: "",
-    imageUrl: "",
-    ingredients: "",
-    steps: "",
-    duration: "",
-    complexity: "",
-    affordability: "",
-    isGlutenFree: false,
-    isVegan: false,
-    isVegetarian: false,
-    isLactoseFree: false,
-  });
-
+  const [recipe, setRecipe] = useState([]);
   const [ingredients, setIngredients] = useState([""]);
   const [steps, setSteps] = useState([""]);
   const [loading, setLoading] = useState(true);
@@ -53,8 +39,21 @@ const EditRecipeScreen = ({ navigation, route }) => {
         axios
           .get("https://localhost:7199/api/meal/listar-meal", {})
           .then(function (response) {
-            console.log("O que eu recebo do axios" + response.data);
-            const data = setRecipe(response.data);
+            const data = response.data;
+            // Filtrar a receita pelo ID
+            const foundRecipe = data.find((recipe) => recipe.id === recipeId);
+            if (foundRecipe) {
+              setRecipe(foundRecipe);
+
+              // Se eliminado "Maximum update depth error"
+              setSelectedCategories(foundRecipe.categories || []);
+              // Atualiza o MultiSelect com os IDs das categorias
+              const categoryIds =
+                foundRecipe.categories?.map((c) => c.id) || [];
+              setSelectedCategories(categoryIds);
+              setIngredients(foundRecipe.ingredients || [""]);
+              setSteps(foundRecipe.steps || [""]);
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -66,7 +65,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
       }
     }
     handleData();
-  }, []);
+  }, [recipeId]);
 
   useEffect(() => {
     navigation.setOptions({ title: "Editar Receita" });
@@ -125,23 +124,25 @@ const EditRecipeScreen = ({ navigation, route }) => {
 
     const form = new FormData();
 
-    form.append("Id", 0);
+    form.append("Id", recipe.id);
     form.append("CategoryIds", formattedCategories);
     form.append("Title", recipeTitle);
     form.append("ImageUrl", recipe.imageUrl);
-    form.append("Ingrediens", formattedIngredients);
+    form.append("Ingredients", formattedIngredients);
     form.append("Steps", formattedSteps);
     form.append("Duration", recipe.duration);
     form.append("Complexity", recipeComplexity);
-    form.append("Affordanility", recipeAffordability);
+    form.append("Affordability", recipeAffordability);
     form.append("IsGlutenFree", recipe.isGlutenFree);
     form.append("IsVegan", recipe.isVegan);
     form.append("IsVegetarian", recipe.isVegetarian);
-    form.append("IsLactoseFree", recipe.isVegetarian);
+    form.append("IsLactoseFree", recipe.isLactoseFree);
 
     axios
-      .put("https://localhost:7199/api/meals", {
-        form,
+      .put("https://localhost:7199/api/meal/edit-meal", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then(function (response) {
         console.log(response.data);
@@ -149,7 +150,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(form);
+    console.log("Formulario enviado", form);
   };
 
   return (
@@ -161,7 +162,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
               <Text style={styles.label}>Nome da receita</Text>
               <TextInput
                 style={styles.formTextInput}
-                defaultValue=""
+                defaultValue={recipe?.title}
                 onChangeText={(text) => handleInputChange("title", text)}
               />
             </View>
@@ -169,6 +170,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
               <Text style={styles.label}>URL da imagem</Text>
               <TextInput
                 style={styles.formTextInput}
+                defaultValue={recipe?.imageUrl}
                 onChangeText={(text) => handleInputChange("imageUrl", text)}
               />
             </View>
@@ -226,6 +228,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
               <Text style={styles.label}>Duração (em minutos)</Text>
               <TextInput
                 style={styles.formTextInput}
+                defaultValue={recipe?.duration}
                 onChangeText={(text) => handleInputChange("duration", text)}
               />
             </View>
@@ -233,6 +236,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
               <Text style={styles.label}>Custo</Text>
               <TextInput
                 style={styles.formTextInput}
+                defaultValue={recipe?.affordability}
                 onChangeText={(text) =>
                   handleInputChange("affordability", text)
                 }
@@ -242,6 +246,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
               <Text style={styles.label}>Dificuldade</Text>
               <TextInput
                 style={styles.formTextInput}
+                defaultValue={recipe?.complexity}
                 onChangeText={(text) => handleInputChange("complexity", text)}
               />
             </View>
@@ -251,7 +256,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
                 trackColor={{ false: "#767577", true: "#81b0ff" }}
                 thumbColor={recipe.isGlutenFree ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
-                value={recipe.isGlutenFree}
+                value={recipe?.isGlutenFree}
                 onValueChange={(newValue) =>
                   handleInputChange("isGlutenFree", newValue)
                 }
@@ -263,7 +268,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
                 trackColor={{ false: "#767577", true: "#81b0ff" }}
                 thumbColor={recipe.isVegan ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
-                value={recipe.isVegan}
+                value={recipe?.isVegan}
                 onValueChange={(newValue) =>
                   handleInputChange("isVegan", newValue)
                 }
@@ -275,7 +280,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
                 trackColor={{ false: "#767577", true: "#81b0ff" }}
                 thumbColor={recipe.isVegetarian ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
-                value={recipe.isVegetarian}
+                value={recipe?.isVegetarian}
                 onValueChange={(newValue) =>
                   handleInputChange("isVegetarian", newValue)
                 }
@@ -287,14 +292,14 @@ const EditRecipeScreen = ({ navigation, route }) => {
                 trackColor={{ false: "#767577", true: "#81b0ff" }}
                 thumbColor={recipe.isLactoseFree ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
-                value={recipe.isLactoseFree}
+                value={recipe?.isLactoseFree}
                 onValueChange={(newValue) =>
                   handleInputChange("isLactoseFree", newValue)
                 }
               />
             </View>
             <Pressable style={styles.formPressable} onPress={handleNewRecipe}>
-              <Text style={styles.formPressableText}>Criar Receita</Text>
+              <Text style={styles.formPressableText}>Editar Receita</Text>
             </Pressable>
           </View>
         </ScrollView>
