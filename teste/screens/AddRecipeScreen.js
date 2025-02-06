@@ -114,18 +114,18 @@ const AddRecipeScreen = ({ navigation }) => {
       recipe.affordability.slice(1);
 
     const newRecipe = {
-      categoryIds: formattedCategories,
-      title: recipeTitle,
-      imageUrl: recipe.imageUrl,
-      ingredients: formattedIngredients,
-      steps: formattedSteps,
-      duration: recipe.duration,
-      complexity: recipeComplexity,
-      affordability: recipeAffordability,
-      isGlutenFree: recipe.isGlutenFree,
-      isVegan: recipe.isVegan,
-      isVegetarian: recipe.isVegetarian,
-      isLactoseFree: recipe.isLactoseFree,
+      CategoryIds: formattedCategories,
+      Title: recipeTitle,
+      ImageUrl: recipe.imageUrl,
+      Ingredients: formattedIngredients,
+      Steps: formattedSteps,
+      Duration: recipe.duration,
+      Complexity: recipeComplexity,
+      Affordability: recipeAffordability,
+      IsGlutenFree: recipe.isGlutenFree,
+      IsVegan: recipe.isVegan,
+      IsVegetarian: recipe.isVegetarian,
+      IsLactoseFree: recipe.isLactoseFree,
     };
 
     console.log(newRecipe);
