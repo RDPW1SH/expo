@@ -1,5 +1,5 @@
 import { View, FlatList, StyleSheet, Text, Pressable } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import LoadingComponent from "../components/LoadingComponent";
 import HomeCategoriesComponent from "../components/HomeCategoriesComponent";
 import Icon from "../components/IconComponent";
@@ -75,7 +75,6 @@ function HomeScreen({ navigation }) {
           </View>
         }
         renderItem={({ item }) => (
-          
           <HomeCategoriesComponent
             id={item.id}
             title={item.title}
