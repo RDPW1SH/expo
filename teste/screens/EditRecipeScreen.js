@@ -13,9 +13,12 @@ import LoadingComponent from "../components/LoadingComponent";
 import { MultiSelect } from "react-native-element-dropdown";
 import Icon from "../components/IconComponent";
 import axios from "axios";
-const EditRecipeScreen = ({ navigation }) => {
+const EditRecipeScreen = ({ navigation, route }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const recipeId = route?.params.recipeId;
+
   const [recipe, setRecipe] = useState({
     categoryIds: "",
     title: "",
@@ -46,6 +49,16 @@ const EditRecipeScreen = ({ navigation }) => {
           const data = await res.json();
           setCategories(data);
         }
+
+        axios
+          .get("https://localhost:7199/api/meal/listar-meal", {})
+          .then(function (response) {
+            console.log("O que eu recebo do axios" + response.data);
+            const data = setRecipe(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
       } catch (e) {
         console.error(e);
       } finally {
@@ -56,7 +69,7 @@ const EditRecipeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    navigation.setOptions({ title: "All Categories" });
+    navigation.setOptions({ title: "Editar Receita" });
   }, [navigation]);
 
   const handleInputChange = (key, value) => {
@@ -148,6 +161,7 @@ const EditRecipeScreen = ({ navigation }) => {
               <Text style={styles.label}>Nome da receita</Text>
               <TextInput
                 style={styles.formTextInput}
+                defaultValue=""
                 onChangeText={(text) => handleInputChange("title", text)}
               />
             </View>
