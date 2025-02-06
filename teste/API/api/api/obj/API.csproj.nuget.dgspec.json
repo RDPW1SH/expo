@@ -1,23 +1,29 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj": {}
+    "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj": {
+    "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj",
+        "projectUniqueName": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
         "projectName": "API",
+<<<<<<< Updated upstream
         "projectPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj",
         "packagesPath": "C:\\Users\\pedri\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\obj\\",
+=======
+        "projectPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Rafa\\.nuget\\packages\\",
+        "outputPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\obj\\",
+>>>>>>> Stashed changes
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\pedri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Rafa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

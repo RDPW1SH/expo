@@ -32,5 +32,27 @@ yarn-error.*
 # local env files
 .env*.local
 
+
+# Ignorar pastas do Visual Studio
+.vs/
+API/.vs/
+API/api/.vs/
+
+# Ignorar diretórios de build do .NET
+API/api/bin/
+API/api/obj/
+API/api/obj/Debug/
+API/api/obj/Release/
+
+# Ignorar arquivos do NuGet
+API/api/*.nuget.dgspec.json
+API/api/*.nuget.g.targets
+API/api/*.nuget.g.props
+API/api/project.assets.json
+API/api/project.nuget.cache
+
+# Ignorar arquivos de usuário do Visual Studio
+API/API.csproj.user
+
 # typescript
 *.tsbuildinfo
