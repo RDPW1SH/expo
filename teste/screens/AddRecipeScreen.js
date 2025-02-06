@@ -6,10 +6,6 @@ import {
   Pressable,
   Switch,
   ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
@@ -17,8 +13,6 @@ import LoadingComponent from "../components/LoadingComponent";
 import { MultiSelect } from "react-native-element-dropdown";
 import Icon from "../components/IconComponent";
 import axios from "axios";
-
-
 
 const AddRecipeScreen = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
@@ -62,7 +56,7 @@ const AddRecipeScreen = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    navigation.setOptions({ title: "All Categories" });
+    navigation.setOptions({ title: "Adicionar receita" });
   }, [navigation]);
 
   const handleInputChange = (key, value) => {
@@ -105,9 +99,6 @@ const AddRecipeScreen = ({ navigation }) => {
   };
 
   const handleNewRecipe = () => {
-    const formattedCategories = selectedCategories.join(";");
-    const formattedIngredients = ingredients.join(";");
-    const formattedSteps = steps.join(";");
     const recipeTitle =
       recipe.title.charAt(0).toUpperCase() + recipe.title.slice(1);
     const recipeComplexity =
@@ -116,25 +107,27 @@ const AddRecipeScreen = ({ navigation }) => {
       recipe.affordability.charAt(0).toUpperCase() +
       recipe.affordability.slice(1);
 
-    const newRecipe = {
-      Id: 0,
-      CategoryIds: formattedCategories,
-      Title: recipeTitle,
-      ImageUrl: recipe.imageUrl,
-      Ingredients: formattedIngredients,
-      Steps: formattedSteps,
-      Duration: recipe.duration,
-      Complexity: recipeComplexity,
-      Affordability: recipeAffordability,
-      IsGlutenFree: recipe.isGlutenFree,
-      IsVegan: recipe.isVegan,
-      IsVegetarian: recipe.isVegetarian,
-      IsLactoseFree: recipe.isLactoseFree,
-    };
+    const form = new FormData();
+
+    form.append("Id", recipe.id);
+    form.append("CategoryIds", recipe.categoryIds);
+    form.append("Title", recipeTitle);
+    form.append("ImageUrl", recipe.imageUrl);
+    form.append("Ingredients", recipe.ingredients);
+    form.append("Steps", recipe.steps);
+    form.append("Duration", recipe.duration);
+    form.append("Complexity", recipeComplexity);
+    form.append("Affordability", recipeAffordability);
+    form.append("IsGlutenFree", recipe.isGlutenFree);
+    form.append("IsVegan", recipe.isVegan);
+    form.append("IsVegetarian", recipe.isVegetarian);
+    form.append("IsLactoseFree", recipe.isLactoseFree);
 
     axios
-      .post("https://localhost:7199/api/meal/add-meal", { ...newRecipe }, {
-        headers: { "Content-Type": "application/json" },
+      .post("https://localhost:7199/api/meal/add-meal", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then(function (response) {
         console.log(response.data);
