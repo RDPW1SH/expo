@@ -32,41 +32,5 @@ yarn-error.*
 # local env files
 .env*.local
 
-
-# Ignorar pastas do Visual Studio
-.vs/
-API/.vs/
-API/api/.vs/
-
-# Ignorar arquivos temporários e de configuração do Visual Studio
-*.suo
-*.sqlite
-*.wusuo
-*.dbtcache.v2
-*.futdcache.v2
-*.json.backup
-
-# Ignorar arquivos específicos dentro das pastas que apareceram no erro
-API/.vs/API/v17/*
-API/api/.vs/api/v17/*
-API/api/.vs/api/DesignTimeBuild/*
-API/api/.vs/api/ProjectEvaluation/*.bin
-
-# Ignorar diretórios de build do .NET
-API/api/bin/
-API/api/obj/
-API/api/obj/Debug/
-API/api/obj/Release/
-
-# Ignorar arquivos do NuGet
-API/api/*.nuget.dgspec.json
-API/api/*.nuget.g.targets
-API/api/*.nuget.g.props
-API/api/project.assets.json
-API/api/project.nuget.cache
-
-# Ignorar arquivos de usuário do Visual Studio
-API/API.csproj.user
-
 # typescript
 *.tsbuildinfo

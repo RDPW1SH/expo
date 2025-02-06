@@ -4043,27 +4043,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      "projectUniqueName": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj",
-      "projectName": "API",
-      "projectPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\pedri\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pedri\\Desktop\\estagio\\react\\expo\\teste\\API\\api\\API\\obj\\",
-=======
       "projectUniqueName": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
       "projectName": "API",
       "projectPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Rafa\\.nuget\\packages\\",
       "outputPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\obj\\",
->>>>>>> Stashed changes
-=======
-      "projectUniqueName": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
-      "projectName": "API",
-      "projectPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\Rafa\\.nuget\\packages\\",
-      "outputPath": "E:\\Git repositories\\Tool\\expo\\teste\\API\\api\\API\\obj\\",
->>>>>>> Stashed changes
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
