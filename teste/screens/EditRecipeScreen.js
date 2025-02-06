@@ -31,6 +31,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
 
         if (res.ok) {
           const data = await res.json();
+          console.log("Todas as categorias:", data);
           setCategories(data);
         }
 
@@ -40,18 +41,21 @@ const EditRecipeScreen = ({ navigation, route }) => {
             const data = response.data;
             // Filtrar a receita pelo ID
             const foundRecipe = data.find((recipe) => recipe.id === recipeId);
+
             if (foundRecipe) {
               setRecipe(foundRecipe);
+
               // Atualiza o MultiSelect com os IDs das categorias
               const categoryIds = foundRecipe?.categoryIds || [];
 
-              // Filtrar categorias correspondentes pelo ID
-              const selectedCategoriesData = categories.filter((category) =>
-                categoryIds.includes(category.id)
-              );
-
-              // Atualizar o estado com os objetos completos das categorias
-              setSelectedCategories(selectedCategoriesData);
+              const filteredCategories = categories
+                .filter((category) => categoryIds.includes(category.id))
+                .map((category) => ({
+                  id: category.id,
+                  title: category.title,
+                }));
+              console.log(filteredCategories);
+              setSelectedCategories(filteredCategories);
               setIngredients(foundRecipe.ingredients || [""]);
               setSteps(foundRecipe.steps || [""]);
             }
@@ -178,8 +182,8 @@ const EditRecipeScreen = ({ navigation, route }) => {
                 data={categories}
                 labelField="title"
                 valueField="id"
-                placeholder="Select Categories"
-                value={selectedCategories}
+                placeholder="Selecionar categorias"
+                value={selectedCategories.map((category) => category.id)}
                 onChange={(items) => setSelectedCategories(items)}
                 style={styles.picker}
               />

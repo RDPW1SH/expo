@@ -30,7 +30,7 @@ const RecipeScreen = ({ navigation, route }) => {
         if (res.ok) {
           const data = await res.json();
           const foundMeal = data.find((meal) => meal.id === id);
-          console.log(foundMeal);
+          // console.log(foundMeal);
           setMeal(foundMeal);
           navigation.setOptions({ title: foundMeal?.title || "food" });
         }
@@ -63,8 +63,7 @@ const RecipeScreen = ({ navigation, route }) => {
         data: { id: meal.id },
       })
       .then(function (response) {
-        console.log(response.status);
-
+        // console.log(response.status);
         navigation.goBack();
       })
       .catch(function (error) {
