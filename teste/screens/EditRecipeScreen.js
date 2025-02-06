@@ -14,11 +14,9 @@ import { MultiSelect } from "react-native-element-dropdown";
 import Icon from "../components/IconComponent";
 import axios from "axios";
 const EditRecipeScreen = ({ navigation, route }) => {
+  const recipeId = route?.params.recipeId;
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-
-  const recipeId = route?.params.recipeId;
-
   const [recipe, setRecipe] = useState([]);
   const [ingredients, setIngredients] = useState([""]);
   const [steps, setSteps] = useState([""]);
@@ -44,13 +42,16 @@ const EditRecipeScreen = ({ navigation, route }) => {
             const foundRecipe = data.find((recipe) => recipe.id === recipeId);
             if (foundRecipe) {
               setRecipe(foundRecipe);
-
-              // Se eliminado "Maximum update depth error"
-              setSelectedCategories(foundRecipe.categories || []);
               // Atualiza o MultiSelect com os IDs das categorias
-              const categoryIds =
-                foundRecipe.categories?.map((c) => c.id) || [];
-              setSelectedCategories(categoryIds);
+              const categoryIds = foundRecipe?.categoryIds || [];
+
+              // Filtrar categorias correspondentes pelo ID
+              const selectedCategoriesData = categories.filter((category) =>
+                categoryIds.includes(category.id)
+              );
+
+              // Atualizar o estado com os objetos completos das categorias
+              setSelectedCategories(selectedCategoriesData);
               setIngredients(foundRecipe.ingredients || [""]);
               setSteps(foundRecipe.steps || [""]);
             }
@@ -111,9 +112,6 @@ const EditRecipeScreen = ({ navigation, route }) => {
   };
 
   const handleNewRecipe = () => {
-    const formattedCategories = selectedCategories.join(";");
-    const formattedIngredients = ingredients.join(";");
-    const formattedSteps = steps.join(";");
     const recipeTitle =
       recipe.title.charAt(0).toUpperCase() + recipe.title.slice(1);
     const recipeComplexity =
@@ -125,11 +123,11 @@ const EditRecipeScreen = ({ navigation, route }) => {
     const form = new FormData();
 
     form.append("Id", recipe.id);
-    form.append("CategoryIds", formattedCategories);
+    form.append("CategoryIds", recipe.categoryIds);
     form.append("Title", recipeTitle);
     form.append("ImageUrl", recipe.imageUrl);
-    form.append("Ingredients", formattedIngredients);
-    form.append("Steps", formattedSteps);
+    form.append("Ingredients", recipe.ingredients);
+    form.append("Steps", recipe.steps);
     form.append("Duration", recipe.duration);
     form.append("Complexity", recipeComplexity);
     form.append("Affordability", recipeAffordability);
