@@ -49,7 +49,7 @@ namespace API.Controllers
             return Ok(formattedMeals);
         }
 
-            [HttpPost]
+            [HttpPost("add-meal")]
             public async Task<ActionResult<List<Meal>>> AddMeal([FromBody] Meal meal)
             {
                 _context.Meal.Add(meal);
@@ -57,7 +57,7 @@ namespace API.Controllers
                 return Ok(await GetAllMeal());
             }
 
-            [HttpPut]
+            [HttpPut("edit-meal")]
             public async Task<ActionResult<List<Meal>>> UpdateMeal(Meal updatedMeal)
             {
                 var dbCat = await _context.Meal.FindAsync(updatedMeal.Id);
