@@ -58,7 +58,7 @@ namespace API.Controllers
             }
 
             [HttpPut("edit-meal")]
-            public async Task<ActionResult<List<Meal>>> UpdateMeal(Meal updatedMeal)
+            public async Task<ActionResult<List<Meal>>> UpdateMeal([FromForm]Meal updatedMeal)
             {
                 var dbCat = await _context.Meal.FindAsync(updatedMeal.Id);
                 if (dbCat is null)
