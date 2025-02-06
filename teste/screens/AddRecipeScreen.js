@@ -16,7 +16,6 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import LoadingComponent from "../components/LoadingComponent";
 import { MultiSelect } from "react-native-element-dropdown";
 import Icon from "../components/IconComponent";
-
 const AddRecipeScreen = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -128,6 +127,14 @@ const AddRecipeScreen = ({ navigation }) => {
       IsLactoseFree: recipe.isLactoseFree,
     };
 
+    axios
+      .delete("https://localhost:7199/api/meals")
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     console.log(newRecipe);
   };
 

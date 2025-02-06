@@ -4,8 +4,6 @@ import LoadingComponent from "../components/LoadingComponent";
 import HomeCategoriesComponent from "../components/HomeCategoriesComponent";
 import Icon from "../components/IconComponent";
 import axios from "axios";
-import { useFocusEffect } from "@react-navigation/native";
-
 
 function HomeScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
@@ -24,8 +22,6 @@ function HomeScreen({ navigation }) {
         console.log(error);
       });
   }
-
-
 
   useEffect(() => {
     /*
@@ -47,8 +43,6 @@ function HomeScreen({ navigation }) {
       }
     }
     */
-
-
 
     navigation.setOptions({ title: "All Categories" });
     //handleData();
