@@ -1,4 +1,5 @@
-﻿using API.Controllers.Entities;
+﻿using System.Text.Json;
+using API.Controllers.Entities;
 using API.Controllers.Entities.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,71 +17,89 @@ namespace API.Controllers
                 _context = context;
             }
 
-
             [HttpGet("listar-meal")]
             public async Task<IActionResult> GetAllMeal()
             {
                 var meals = await _context.Meal.ToListAsync();
+
                 var formattedMeals = meals.Select(meal => new
                 {
-                    Id = meal.Id, // Mantendo o ID original
-                    CategoryIds = meal.CategoryIds
-                        .Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries)
-                        .Select(id => long.TryParse(id, out var num) ? num : 0) // Convertendo para long e tratando erro
-                        .Where(id => id != 0) // Removendo valores inválidos
-                        .ToList(),
+                    Id = meal.Id,
+                    CategoryIds = string.IsNullOrEmpty(meal.CategoryIds)
+                        ? new List<long>()
+                        : JsonSerializer.Deserialize<List<long>>(meal.CategoryIds),
                     Title = meal.Title,
                     Affordability = meal.Affordability,
                     Complexity = meal.Complexity,
                     ImageUrl = meal.ImageUrl,
                     Duration = meal.Duration,
-                    Ingredients = meal.Ingredients
-                        .Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries)
-                        .ToList(),
-                                Steps = meal.Steps
-                        .Split(new[] { "; ", ";" }, StringSplitOptions.RemoveEmptyEntries)
-                        .ToList(),
+                    Ingredients = string.IsNullOrEmpty(meal.Ingredients)
+                        ? new List<string>()
+                        : JsonSerializer.Deserialize<List<string>>(meal.Ingredients),
+                    Steps = string.IsNullOrEmpty(meal.Steps)
+                        ? new List<string>()
+                        : JsonSerializer.Deserialize<List<string>>(meal.Steps),
                     IsGlutenFree = meal.IsGlutenFree,
                     IsVegan = meal.IsVegan,
                     IsVegetarian = meal.IsVegetarian,
                     IsLactoseFree = meal.IsLactoseFree
                 });
 
-            return Ok(formattedMeals);
-        }
+                return Ok(formattedMeals);
+            }
 
             [HttpPost("add-meal")]
-            public async Task<ActionResult<List<Meal>>> AddMeal([FromBody] Meal meal)
+            public async Task<ActionResult<List<Meal>>> AddMeal([FromForm] AddMeal newMeal)
             {
+                var meal = new Meal
+                {
+                    Title = newMeal.Title,
+                    ImageUrl = newMeal.ImageUrl,
+                    CategoryIds = JsonSerializer.Serialize(newMeal.CategoryIds), 
+                    Ingredients = JsonSerializer.Serialize(newMeal.Ingredients), 
+                    Steps = JsonSerializer.Serialize(newMeal.Steps), 
+                    Duration = newMeal.Duration,
+                    Complexity = newMeal.Complexity,
+                    Affordability = newMeal.Affordability,
+                    IsGlutenFree = newMeal.IsGlutenFree,
+                    IsVegan = newMeal.IsVegan,
+                    IsVegetarian = newMeal.IsVegetarian,
+                    IsLactoseFree = newMeal.IsLactoseFree
+                };
+
                 _context.Meal.Add(meal);
                 await _context.SaveChangesAsync();
                 return Ok(await GetAllMeal());
             }
 
             [HttpPut("edit-meal")]
-            public async Task<ActionResult<List<Meal>>> UpdateMeal([FromForm]Meal updatedMeal)
+            public async Task<ActionResult<List<Meal>>> UpdateMeal([FromForm] AddMeal updatedMeal)
             {
-                var dbCat = await _context.Meal.FindAsync(updatedMeal.Id);
-                if (dbCat is null)
+                var dbMeal = await _context.Meal.FindAsync(updatedMeal.Id);
+                if (dbMeal is null)
                     return NotFound("Meal Not Found");
-                dbCat.Title = updatedMeal.Title;
-                dbCat.ImageUrl = updatedMeal.ImageUrl;
-                dbCat.CategoryIds = updatedMeal.CategoryIds;
-                dbCat.Ingredients = updatedMeal.Ingredients;
-                dbCat.Steps = updatedMeal.Steps;
-                dbCat.Duration = updatedMeal.Duration;
-                dbCat.Complexity = updatedMeal.Complexity;
-                dbCat.Affordability = updatedMeal.Affordability;
-                dbCat.IsGlutenFree = updatedMeal.IsGlutenFree;
-                dbCat.IsVegan = updatedMeal.IsVegan;
-                dbCat.IsVegetarian = updatedMeal.IsVegetarian;
-                dbCat.IsLactoseFree = updatedMeal.IsLactoseFree;
+
+                dbMeal.Title = updatedMeal.Title;
+                dbMeal.ImageUrl = updatedMeal.ImageUrl;
+
+                // Serializando listas para armazenar da db
+                dbMeal.CategoryIds = JsonSerializer.Serialize(updatedMeal.CategoryIds);
+                dbMeal.Ingredients = JsonSerializer.Serialize(updatedMeal.Ingredients);
+                dbMeal.Steps = JsonSerializer.Serialize(updatedMeal.Steps);
+
+                dbMeal.Duration = updatedMeal.Duration;
+                dbMeal.Complexity = updatedMeal.Complexity;
+                dbMeal.Affordability = updatedMeal.Affordability;
+                dbMeal.IsGlutenFree = updatedMeal.IsGlutenFree;
+                dbMeal.IsVegan = updatedMeal.IsVegan;
+                dbMeal.IsVegetarian = updatedMeal.IsVegetarian;
+                dbMeal.IsLactoseFree = updatedMeal.IsLactoseFree;
 
                 await _context.SaveChangesAsync();
 
-
                 return Ok(await _context.Meal.ToListAsync());
             }
+
             [HttpDelete("delete-meal")]
             public async Task<ActionResult<List<Meal>>> DeleteMeal(long Id)
             {
