@@ -16,13 +16,9 @@ import axios from "axios";
 
 const AddRecipeScreen = ({ navigation }) => {
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
   const [recipe, setRecipe] = useState({
-    categoryIds: "",
     title: "",
     imageUrl: "",
-    ingredients: "",
-    steps: "",
     duration: "",
     complexity: "",
     affordability: "",
@@ -31,8 +27,11 @@ const AddRecipeScreen = ({ navigation }) => {
     isVegetarian: false,
     isLactoseFree: false,
   });
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [ingredients, setIngredients] = useState([""]);
   const [steps, setSteps] = useState([""]);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -109,12 +108,25 @@ const AddRecipeScreen = ({ navigation }) => {
 
     const form = new FormData();
 
-    form.append("Id", recipe.id);
-    form.append("CategoryIds", recipe.categoryIds);
+    form.append("Id", 0);
+
+    selectedCategories.map((id) => {
+      form.append("CategoryIds", id);
+    });
+
     form.append("Title", recipeTitle);
     form.append("ImageUrl", recipe.imageUrl);
-    form.append("Ingredients", recipe.ingredients);
-    form.append("Steps", recipe.steps);
+
+    ingredients.map((ingredient) => {
+      form.append("Ingredients", ingredient);
+    });
+
+    steps.map((step) => {
+      form.append("Steps", step);
+    });
+
+    //form.append("Steps", steps);
+
     form.append("Duration", recipe.duration);
     form.append("Complexity", recipeComplexity);
     form.append("Affordability", recipeAffordability);
@@ -122,7 +134,7 @@ const AddRecipeScreen = ({ navigation }) => {
     form.append("IsVegan", recipe.isVegan);
     form.append("IsVegetarian", recipe.isVegetarian);
     form.append("IsLactoseFree", recipe.isLactoseFree);
-
+    console.log(form);
     axios
       .post("https://localhost:7199/api/meal/add-meal", form, {
         headers: {
@@ -136,7 +148,6 @@ const AddRecipeScreen = ({ navigation }) => {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(newRecipe);
   };
 
   return (

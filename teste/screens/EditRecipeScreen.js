@@ -13,6 +13,7 @@ import LoadingComponent from "../components/LoadingComponent";
 import { MultiSelect } from "react-native-element-dropdown";
 import Icon from "../components/IconComponent";
 import axios from "axios";
+
 const EditRecipeScreen = ({ navigation, route }) => {
   const recipeId = route?.params.recipeId;
   const [categories, setCategories] = useState([]);
@@ -127,11 +128,20 @@ const EditRecipeScreen = ({ navigation, route }) => {
     const form = new FormData();
 
     form.append("Id", recipe.id);
-    form.append("CategoryIds", recipe.categoryIds);
+    selectedCategories.map((id) => {
+      form.append("CategoryIds", id);
+    });
+
     form.append("Title", recipeTitle);
     form.append("ImageUrl", recipe.imageUrl);
-    form.append("Ingredients", recipe.ingredients);
-    form.append("Steps", recipe.steps);
+
+    ingredients.map((ingredient) => {
+      form.append("Ingredients", ingredient);
+    });
+
+    steps.map((step) => {
+      form.append("Steps", step);
+    });
     form.append("Duration", recipe.duration);
     form.append("Complexity", recipeComplexity);
     form.append("Affordability", recipeAffordability);
@@ -148,10 +158,12 @@ const EditRecipeScreen = ({ navigation, route }) => {
       })
       .then(function (response) {
         console.log(response.data);
+        navigation.goBack();
       })
       .catch(function (error) {
         console.log(error);
       });
+
     console.log("Formulario enviado", form);
   };
 
@@ -183,7 +195,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
                 labelField="title"
                 valueField="id"
                 placeholder="Selecionar categorias"
-                value={selectedCategories.map((category) => category.id)}
+                value={selectedCategories}
                 onChange={(items) => setSelectedCategories(items)}
                 style={styles.picker}
               />
