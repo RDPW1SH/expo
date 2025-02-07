@@ -59,6 +59,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
       }
     }
     handleData();
+    navigation.setOptions({ title: "Editar Receita" });
   }, [recipeId]);
 
   useEffect(() => {
@@ -69,10 +70,6 @@ const EditRecipeScreen = ({ navigation, route }) => {
       setSelectedCategories(selectedIds);
     }
   }, [categories, recipe]);
-
-  useEffect(() => {
-    navigation.setOptions({ title: "Editar Receita" });
-  }, [navigation]);
 
   const handleInputChange = (key, value) => {
     setRecipe((previousState) => ({
