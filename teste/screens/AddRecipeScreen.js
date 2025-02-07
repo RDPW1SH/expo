@@ -19,7 +19,10 @@ const AddRecipeScreen = ({ navigation }) => {
   const [recipe, setRecipe] = useState({
     title: "",
     imageUrl: "",
+    categoryIds: [],
     duration: "",
+    ingredients: [],
+    steps: [],
     complexity: "",
     affordability: "",
     isGlutenFree: false,
@@ -27,11 +30,6 @@ const AddRecipeScreen = ({ navigation }) => {
     isVegetarian: false,
     isLactoseFree: false,
   });
-
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [ingredients, setIngredients] = useState([""]);
-  const [steps, setSteps] = useState([""]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,32 +67,26 @@ const AddRecipeScreen = ({ navigation }) => {
     return <LoadingComponent />;
   }
 
-  const handleAddIngredient = () => {
-    setIngredients([...ingredients, ""]);
+  const handleAddValue = (key) => {
+    setRecipe((prevState) => ({
+      ...prevState,
+      [key]: [...prevState[key], ""],
+    }));
   };
 
-  const handleRemoveIngredient = (index) => {
-    setIngredients(ingredients.filter((_, i) => i !== index));
+  const handleRemoveValue = (key, index) => {
+    setRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      [key]: prevRecipe[key].filter((_, i) => i !== index),
+    }));
   };
 
-  const handleIngredientChange = (text, index) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index] = text;
-    setIngredients(newIngredients);
-  };
-
-  const handleAddStep = () => {
-    setSteps([...steps, ""]);
-  };
-
-  const handleRemoveStep = (index) => {
-    setSteps(steps.filter((_, i) => i !== index));
-  };
-
-  const handleStepChange = (text, index) => {
-    const newSteps = [...steps];
-    newSteps[index] = text;
-    setSteps(newSteps);
+  const handleValueChange = (key, text, index) => {
+    setRecipe((prevRecipe) => {
+      const updatedArray = [...prevRecipe[key]];
+      updatedArray[index] = text;
+      return { ...prevRecipe, [key]: updatedArray };
+    });
   };
 
   const handleNewRecipe = () => {
@@ -110,18 +102,18 @@ const AddRecipeScreen = ({ navigation }) => {
 
     form.append("Id", 0);
 
-    selectedCategories.map((id) => {
+    recipe.categoryIds.map((id) => {
       form.append("CategoryIds", id);
     });
 
     form.append("Title", recipeTitle);
     form.append("ImageUrl", recipe.imageUrl);
 
-    ingredients.map((ingredient) => {
+    recipe.ingredients.map((ingredient) => {
       form.append("Ingredients", ingredient);
     });
 
-    steps.map((step) => {
+    recipe.steps.map((step) => {
       form.append("Steps", step);
     });
 
@@ -176,46 +168,63 @@ const AddRecipeScreen = ({ navigation }) => {
                 labelField="title"
                 valueField="id"
                 placeholder="Select Categories"
-                value={selectedCategories}
-                onChange={(items) => setSelectedCategories(items)}
+                value={recipe?.categoryIds}
+                onChange={(items) =>
+                  setRecipe((prevState) => ({
+                    ...prevState,
+                    categoryIds: items,
+                  }))
+                }
                 style={styles.picker}
               />
             </View>
             <View>
               <Text style={styles.label}>Ingredientes</Text>
-              {ingredients.map((ingredient, index) => (
+              {recipe.ingredients.map((ingredient, index) => (
                 <View key={index} style={styles.ingredientContainer}>
                   <TextInput
                     style={styles.input}
                     placeholder="Enter ingredient"
                     value={ingredient}
-                    onChangeText={(text) => handleIngredientChange(text, index)}
+                    onChangeText={(text) =>
+                      handleValueChange("ingredients", text, index)
+                    }
                   />
-                  <Pressable onPress={() => handleRemoveIngredient(index)}>
+                  <Pressable
+                    onPress={() => handleRemoveValue("ingredients", index)}
+                  >
                     <Icon name={"remove"} size={24} color="black" />
                   </Pressable>
                 </View>
               ))}
-              <Pressable onPress={handleAddIngredient} style={styles.addButton}>
+              <Pressable
+                onPress={() => handleAddValue("ingredients")}
+                style={styles.addButton}
+              >
                 <Text style={styles.addButtonText}>Adicionar ingrediente</Text>
               </Pressable>
             </View>
             <View>
               <Text style={styles.label}>Passos</Text>
-              {steps.map((step, index) => (
+              {recipe.steps.map((step, index) => (
                 <View key={index} style={styles.ingredientContainer}>
                   <TextInput
                     style={styles.input}
                     placeholder="Enter steps"
                     value={step}
-                    onChangeText={(text) => handleStepChange(text, index)}
+                    onChangeText={(text) =>
+                      handleValueChange("steps", text, index)
+                    }
                   />
-                  <Pressable onPress={() => handleRemoveStep(index)}>
+                  <Pressable onPress={() => handleRemoveValue("steps", index)}>
                     <Icon name={"remove"} size={24} color="black" />
                   </Pressable>
                 </View>
               ))}
-              <Pressable onPress={handleAddStep} style={styles.addButton}>
+              <Pressable
+                onPress={() => handleAddValue("steps")}
+                style={styles.addButton}
+              >
                 <Text style={styles.addButtonText}>Adicionar Passos</Text>
               </Pressable>
             </View>

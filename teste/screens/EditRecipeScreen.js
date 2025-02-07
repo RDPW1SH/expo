@@ -32,7 +32,7 @@ const EditRecipeScreen = ({ navigation, route }) => {
 
         if (res.ok) {
           const data = await res.json();
-          console.log("Todas as categorias:", data);
+          // console.log("Todas as categorias:", data);
           setCategories(data);
         }
 
