@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     view: {
         flex: 1, alignItems: 'center',
         width: '100%',
+        marginBottom:30,
     },
     title: {
         fontSize: 24,

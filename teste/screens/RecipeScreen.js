@@ -39,8 +39,10 @@ const RecipeScreen = ({ navigation, route }) => {
       }
       setLoading(false);
     }
-
-    handleData();
+    const chamar = navigation.addListener("focus", () => {
+      handleData();
+    });
+    return chamar;
   }, [navigation]);
 
   if (loading) {
@@ -74,7 +76,7 @@ const RecipeScreen = ({ navigation, route }) => {
   // console.log(meal);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeAreaView}>
       <ScrollView style={styles.container}>
         <View style={styles.view}>
           <Image style={styles.image} source={{ uri: meal.imageUrl }} />
@@ -117,9 +119,12 @@ const RecipeScreen = ({ navigation, route }) => {
   );
 };
 const styles = StyleSheet.create({
+  safeAreaView: {
+    backgroundColor: "#A48686",
+    height: '100%',
+  },
   container: {
     flex: 1,
-    backgroundColor: "#A48686",
   },
   view: {
     width: "100%",
