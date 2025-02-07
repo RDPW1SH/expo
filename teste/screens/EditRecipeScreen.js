@@ -45,18 +45,6 @@ const EditRecipeScreen = ({ navigation, route }) => {
 
             if (foundRecipe) {
               setRecipe(foundRecipe);
-
-              // Atualiza o MultiSelect com os IDs das categorias
-              const categoryIds = foundRecipe?.categoryIds || [];
-
-              const filteredCategories = categories
-                .filter((category) => categoryIds.includes(category.id))
-                .map((category) => ({
-                  id: category.id,
-                  title: category.title,
-                }));
-              console.log(filteredCategories);
-              setSelectedCategories(filteredCategories);
               setIngredients(foundRecipe.ingredients || [""]);
               setSteps(foundRecipe.steps || [""]);
             }
@@ -72,6 +60,15 @@ const EditRecipeScreen = ({ navigation, route }) => {
     }
     handleData();
   }, [recipeId]);
+
+  useEffect(() => {
+    if (recipe?.categoryIds && categories.length > 0) {
+      const selectedIds = recipe.categoryIds.filter((id) =>
+        categories.some((category) => category.id === id)
+      );
+      setSelectedCategories(selectedIds);
+    }
+  }, [categories, recipe]);
 
   useEffect(() => {
     navigation.setOptions({ title: "Editar Receita" });
